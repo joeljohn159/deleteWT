@@ -10,5 +10,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Do nothing step
+      - name: Deploy to Render
         run: echo "This is a no-op workflow, it does nothing."
