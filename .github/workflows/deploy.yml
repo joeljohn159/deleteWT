@@ -1,0 +1,14 @@
+name: Do Nothing Workflow
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Do nothing step
+        run: echo "This is a no-op workflow, it does nothing."
