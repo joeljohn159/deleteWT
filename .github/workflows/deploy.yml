@@ -1,31 +1,31 @@
-name: Deploy Django to Render
+name: Django CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-20.04  # Pin to a specific version (e.g., 20.04)
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Deploy to Render
-      env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-      run: |
-        curl -sSL https://render.com/deploy/sdks/cli.sh | sh
-        render deploy --service your-service-name --branch main
+      - name: Run tests
+        run: |
+          python manage.py test
