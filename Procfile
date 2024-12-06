@@ -1,1 +1,2 @@
-web: gunicorn WellTrack.wsgi
+web: gunicorn WellTrack.wsgi:application
+
