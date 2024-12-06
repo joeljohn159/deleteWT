@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            border: 1px solid #dddddd;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Appointments List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Appointment Date</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Action</th>  <!-- New column for Modify button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.name }}</td>
+                <td>{{ appointment.appointment_date }}</td>
+                <td>{{ appointment.description }}</td>
+                <td>{{ appointment.status }}</td>
+                <td>
+                    <!-- Modify Appointment Link -->
+                    <a href="{% url 'modify_appointment' appointment.id %}" class="btn">Modify</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No appointments available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
